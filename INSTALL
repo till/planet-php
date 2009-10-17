@@ -6,7 +6,7 @@ PREQUISITES
 - A database (only tested with mysql, but should work with others, too)
 - MDB2 ( pear install MDB2)
 - Cache (pear install Cache), if you want caching
-- Net_URL_Mapper (pear install Net_URL_Mapper from pear beta channel)
+- Net_URL_Mapper (pear install Net_URL_Mapper-beta)
 
 
 INSTALLATION
@@ -23,14 +23,12 @@ INSTALLATION
 
 - import the db from div/db/mysql.sql
 
-- add blogs to blogs table
-
 - add feeds to feeds table
 
-- to import the entries run the ./libs/scripts/aggregate.php script
+- to import the entries (and populate the blogs table),
+  run the ./libs/scripts/aggregate.php script
 
 - open the page ;)
 
-- Administration has to be done via phpMyAdmin (or similar), just add your 
-   RSS feeds to the feeds table. The rest should be done automatically.
-.
+- Administration has to be done via phpMyAdmin (or similar), just add your
+  RSS feeds to the feeds table. The rest should be done automatically.
