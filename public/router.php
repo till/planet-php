@@ -11,6 +11,7 @@ try {
     $m->connect('opml', array('controller' => 'index', 'action' => 'opml'));
     $m->connect('index', array('controller' => 'index', 'action' => 'index'));
     $m->connect('index/:from', array('controller' => 'index', 'action' => 'page'));
+    $m->connect('twitter', array('controller' => 'index', 'action' => 'twitter'));
 
     $match = $m->match($_SERVER['REQUEST_URI']);
 
@@ -18,7 +19,7 @@ try {
         $match = array('controller' => 'index', 'action' => 'index');
     }
 } catch (Net_URL_Mapper_Exception $e) {
-    die("Something went wrong.");
+    die('Oopsie! Something went wrong.');
 }
 
 $query = (string) @$_GET['search'];
@@ -40,10 +41,21 @@ $planet->setAction($match['action']);
 $planet->setFrom($from);
 $planet->setQuery($query);
 
+$defaultCacheTtl = $planet->getDefaultCacheTtl();
+
 $cacheName = $planet->getCacheName();
 $cacheFile = BX_TEMP_DIR . '/' . $cacheName;
 
-if (!file_exists($cacheFile)) {
+$hasCache = false;
+if (file_exists($cacheFile)) {
+    $createTime = filectime($cacheFile);
+    $aliveTime  = (time()-$createTime);
+    if ($defaultCacheTtl > $aliveTime) {
+        $hasCache = true;
+    }
+}
+
+if ($hasCache === false) {
 
     ob_start();
 
@@ -62,7 +74,7 @@ if (!file_exists($cacheFile)) {
             $viewData['nav'] = array('prev' => null, 'next' => null);
         }
 
-        $planet->render('planet.tpl', $viewData);
+        $planet->render($planet->getTemplate(), $viewData);
 
     } catch (Exception $e) {
         die("Just come back later.");

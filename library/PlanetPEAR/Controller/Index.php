@@ -31,6 +31,35 @@ class PlanetPEAR_Controller_Index extends PlanetPEAR_Controller_Base
     }
 
     /**
+     * Twitter-action!
+     */
+    public function twitter()
+    {
+        include_once 'magpierss/rss_fetch.inc';
+        $feed = 'http://twitter.com/statuses/user_timeline/66157830.rss';
+
+        $feedObj = fetch_rss($feed);
+        $twitter = array();
+        $count   = 0;
+
+        foreach ($feedObj->items as $item) {
+
+            $text = trim(str_replace('pear: ', '', $item['title']));
+            $link = $item['link'];
+
+            $twitter[] = array('link' => $link, 'text' => $text);
+
+            $count++;
+            if ($count == 5) {
+                break;
+            }
+        }
+
+        $this->data['twitter'] = $twitter;
+        return $this->data;
+    }
+
+    /**
      * List OPML feed
      *
      * @return void

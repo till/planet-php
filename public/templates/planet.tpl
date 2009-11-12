@@ -86,6 +86,12 @@
     <?php endforeach; ?>
     </fieldset>
    </div>
+   <div class="menu">
+    <fieldset>
+     <legend><a href="http://twitter.com/pear">PEAR on Twitter</a></legend>
+     <div id="twitter"></div>
+    </fieldset>
+   </div>
    <div class="buttons">
 
     <fieldset>
@@ -131,7 +137,17 @@
      </div>
     </fieldset>
    </div>
-  </div><script language="JavaScript" src="/js/search.js" type="text/javascript">
-</script>
+  </div>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+  <script type="text/javascript">
+  <!--
+  $(document).ready(function() {
+    $.get('/twitter', function(data) {
+        $('#twitter').html(data);
+    });
+  });
+  //-->
+  </script>
+  <script language="JavaScript" src="/js/search.js" type="text/javascript"></script>
  </body>
 </html>

@@ -99,6 +99,14 @@ class PlanetPEAR
         return $this->controller;
     }
 
+    public function getDefaultCacheTtl()
+    {
+        if ($this->action == 'twitter') {
+            return 600;
+        }
+        return 3600;
+    }
+
     /**
      * Fetch and return a list of all feeds
      *
@@ -242,7 +250,13 @@ class PlanetPEAR
         return $navigation;
     }
 
-
+    public function getTemplate()
+    {
+        if ($this->action == 'twitter') {
+            return 'twitter.tpl';
+        }
+        return 'planet.tpl';
+    }
 
     public function isQuery()
     {
