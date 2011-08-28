@@ -216,7 +216,7 @@ class MagpieRSS {
 		// check for a namespace, and split if found
 		$ns	= false;
 		if ( strpos( $element, '@' ) ) {
-			list($ns, $el) = split( '@', $element, 2); 
+			list($ns, $el) = explode( '@', $element, 2); 
 		}
 		if ( $ns and $ns != RDFNS) {
 			
@@ -340,7 +340,7 @@ class MagpieRSS {
 	function feed_end_element ($p, $el) {
 		$el = strtolower($el);
 		if ( strpos( $el, '@' ) ) {
-			list($ns, $el) = split( '@', $el, 2); 
+			list($ns, $el) = explode( '@', $el, 2); 
 		}
 		if ( $ns ) {
 			$ns = $this->namespaces[$ns];
