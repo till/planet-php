@@ -21,7 +21,7 @@ class RSSCache {
 	var $MAX_AGE	= 3600;  		// when are files stale, default one hour
 	var $ERROR 		= "";			// accumulate error messages
 	
-	function RSSCache ($base='', $age='') {
+	function __construct ($base='', $age='') {
 		if ( $base ) {
 			$this->BASE_CACHE = $base;
 		}
@@ -51,7 +51,7 @@ class RSSCache {
 	function set ($url, $rss) {
 		$this->ERROR = "";
 		$cache_file = $this->file_name( $url );
-		$fp = @fopen( $cache_file, 'w' );
+		$fp = fopen( $cache_file, 'w' );
 		
 		if ( ! $fp ) {
 			$this->error(
@@ -59,7 +59,6 @@ class RSSCache {
 			);
 			return 0;
 		}
-		
 		
 		$data = $this->serialize( $rss );
 		fwrite( $fp, $data );
